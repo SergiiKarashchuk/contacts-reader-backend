@@ -1,4 +1,7 @@
 {
+  "engines": {
+    "node": ">=16.x"
+  },
   "name": "template",
   "version": "0.0.0",
   "private": true,
@@ -26,4 +29,5 @@
     "eslint-plugin-promise": "5.2.0",
     "nodemon": "2.0.15"
   }
+
 }
