@@ -1,6 +1,8 @@
 const express = require("express");
 const logger = require("morgan");
 const cors = require("cors");
+const bcrypt = require("bcrypt")
+
 require("dotenv").config();
 
 const authRuoter = require("./routes/api/auth")
@@ -34,5 +36,7 @@ app.use((err, req, res, next) => {
     message: message,
   });
 });
+
+
 
 module.exports = app;
