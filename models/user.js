@@ -3,7 +3,7 @@ const Joi = require("joi");
 
 const { handleMongooseError } = require("../helpers");
 
-const emailRegexp = /^\S+@\S+\.\S+$/;
+const emailRegexp = /[a-z0-9]+@[a-z]+\.[a-z]{2,3}/;
 const userSchema = new Schema({
 name: {
     type: String,

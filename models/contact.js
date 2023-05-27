@@ -47,6 +47,11 @@ const addSchema = Joi.object({
     .required()
     .messages({ "any.required": "missing required fields" }),
   favorite: Joi.boolean(),
+  owner: {
+    type: Schema.Types.ObjectId,
+    ref: "user",
+    required: true,
+  }
 });
 
 const updateStatusContactSchema = Joi.object({

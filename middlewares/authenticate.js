@@ -17,6 +17,8 @@ try {
     if(!user) {
         next(HttpError(401));
     }
+
+    req.user = user;
     next();
 }
 catch {
