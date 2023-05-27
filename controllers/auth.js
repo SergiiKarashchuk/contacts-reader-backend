@@ -21,6 +21,7 @@ const hashPassword = await bcrypt.hash(password, 10);
 
 const newUser = await User.create({...req.body, password: hashPassword});
 
+console.log("newUser", newUser);
 res.status(201).json({
     email: newUser.email,
     name: newUser.name,
