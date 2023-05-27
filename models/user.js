@@ -4,6 +4,8 @@ const Joi = require("joi");
 const { handleMongooseError } = require("../helpers");
 
 const emailRegexp = /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/;
+
+
 const userSchema = new Schema({
 name: {
     type: String,
@@ -19,6 +21,11 @@ password: {
     type: String,
     minlength: 6,
     required: true,
+},
+
+token: {
+    type:String,
+    default: ""
 }
 }, {versionkey: false, timestamps: true});
 

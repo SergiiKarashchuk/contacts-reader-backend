@@ -21,7 +21,6 @@ const hashPassword = await bcrypt.hash(password, 10);
 
 const newUser = await User.create({...req.body, password: hashPassword});
 
-console.log("newUser", newUser);
 res.status(201).json({
     email: newUser.email,
     name: newUser.name,
@@ -44,41 +43,33 @@ const login = async(req, res) => {
     }
 
     const token = jwt.sign(payload, SECRET_KEY, {expiresIn: "23h"});
+await User.findByIdAndUpdate(user._id, {token});
 
     res.json({
         token,
     })
 }
-    // щоб розшифрувати токен
-    // const decodeToken = jwt.decode(token);
-    // console.log(token);
 
-//     щоб перевірити чи токен валідний
-//     try {
-//         const {id} = jwt.veryfy(token, SECRET_KEY);
-//         console.log(id);
-//    наприклад
-//         const invalidToken = "$2b$10$/6Xqu2oV7OM/261EQ8SIbunKDV6GcaogXAYhCpLCKFNIwXDBsZV1m";
-// const result = jwt.veryfy(invalidToken, SECRET_KEY);
-//     }
-//     catch(error) {
-//         console.log(error.message);
-//     }
+const getCurrent = async(req, res) => {
+    const {email, name} = req.user;
+    res.json({
+        email,
+        name,
+    })
+}
 
+const logout = async(req, res) => {
+    const {_id} = req.user;
+    await User.findByIdAndUpdate(_id, {token: ""});
 
-
-// const createHashPassword = async(password) => {
-//     const result = await bcrypt.hash(password, 10);
-//     const compareResalt = await bcrypt.compare(password, result);
-    
-//     console.log(result);
-//     }
-//     createHashPassword("123456")
-
-
-
+    res.json({
+        message: "Logout success"
+    })
+}
 
 module.exports = {
     register: ctrlWrapper(register),
     login: ctrlWrapper(login),
+    getCurrent: ctrlWrapper(getCurrent),
+    logout: ctrlWrapper(logout),
 }
