@@ -1,7 +1,11 @@
 const express = require("express");
 const logger = require("morgan");
 const cors = require("cors");
+const bcrypt = require("bcrypt")
+
 require("dotenv").config();
+
+const authRuoter = require("./routes/api/auth")
 
 const contactsRouter = require("./routes/api");
 
@@ -13,6 +17,8 @@ app.use(logger(formatsLogger));
 app.use(cors());
 app.use(express.json());
 
+
+app.use("/api/auth", authRuoter)
 app.use("/api/contacts", contactsRouter);
 
 app.use((req, res) => {
@@ -30,5 +36,7 @@ app.use((err, req, res, next) => {
     message: message,
   });
 });
+
+
 
 module.exports = app;
