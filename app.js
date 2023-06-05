@@ -2,6 +2,9 @@ const express = require("express");
 const logger = require("morgan");
 const cors = require("cors");
 const bcrypt = require("bcrypt")
+const multer = require("multer");
+const path = require("path");
+const fs = require("fs/promises");
 
 require("dotenv").config();
 
@@ -16,7 +19,34 @@ const formatsLogger = app.get("env") === "development" ? "dev" : "short";
 app.use(logger(formatsLogger));
 app.use(cors());
 app.use(express.json());
+app.use(express.static("public"));
 
+
+
+// const users = [];
+
+// app.get("/api/users", (req, res) => {
+//   res.json(users);
+// })
+
+// const avatarsDir = path.join(__dirname, "public", "books");
+
+// app.post("/api/avatars", upload.single("imageAvatar"), async(req, res) => {
+// const {path: tempUpload, originalname} = req.file;
+// const resultUpload = path.join(avatarsDir, originalname);
+
+// await fs.rename(tempUpload, resultUpload);
+// const avatar = path.join("avatars", originalname);
+// const newUser = {
+//   id: nanoid(),
+//   ...req.body,
+//   avatar,
+// };
+
+// users.push(newUser);
+
+// res.status(201).json(newUser)
+// })
 
 app.use("/api/auth", authRuoter)
 app.use("/api/contacts", contactsRouter);
