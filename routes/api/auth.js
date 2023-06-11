@@ -9,11 +9,15 @@ const { ctrlWrapper } = require("../../helpers");
 
 const router = express.Router();
 
-router.post("/register", validateBody(userSchema.registerSchema), ctrl.register)
+router.post("/register", validateBody(userSchema.register), ctrl.register);
 
-router.post("/login", validateBody(userSchema.loginSchema), ctrl.login);
+router.get("/verify/:verificationCode", ctrl.verify);
 
-router.get("/current", authenticate,ctrl.getCurrent);
+router.post("/verify", validateBody(userSchema.email), ctrl.resendVerifyEmail);
+
+router.post("/login", validateBody(userSchema.login), ctrl.login);
+
+router.get("/current", authenticate,ctrl.getCurrent); 
 
 router.post("/logout", authenticate, ctrl.logout);
 router.patch("/avatars", authenticate, upload.single("avatar"), ctrlWrapper(ctrl.updateAvatar))
