@@ -35,7 +35,6 @@ const verifyEmail = {
 }
 
 const sendEmail_1 = await sendEmail(verifyEmail);
-console.log(sendEmail_1);
 
 res.status(201).json({
     user: {
@@ -83,10 +82,6 @@ const verify = async(req, res) => {
         }
 
 const login = async(req, res) => {
-    // const {error} = schemas.login.validate(req.body);
-    // if(error){
-    //     throw createError(400, error.message);
-    // }
     const {email, password} = req.body;
     const user = await User.findOne({email});
     if(!user){ 
